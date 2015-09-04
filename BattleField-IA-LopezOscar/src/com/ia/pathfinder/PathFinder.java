@@ -2,6 +2,7 @@ package com.ia.pathfinder;
 
 import ia.battle.camp.BattleField;
 import ia.battle.camp.FieldCell;
+import ia.battle.camp.FieldCellType;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -48,22 +49,21 @@ public class PathFinder {
 		return retrievePath();
 	}
 
-	private ArrayList<FieldCell> retrievePath() {
+	private ArrayList<FieldCell> retrievePath(){
 		ArrayList<FieldCell> path = new ArrayList<FieldCell>();
 		Node node = destination;
-
-		while (!node.equals(origin)) {
+		
+		while(!origin.equals(node)){
 			path.add(node.getCell());
 			node = node.getParent();
 		}
 		
 		Collections.reverse(path);
 		
-		System.out.println(path);
 		return path;
 	}
 
-	private void processNode(Node node) {
+	private void processNode(Node node){
 		
 		ArrayList<FieldCell> adj = (ArrayList<FieldCell>)BattleField.getInstance().getAdjacentCells(node.getCell());
 		
@@ -76,15 +76,15 @@ public class PathFinder {
 		closedNodes.add(node);
 
 		for (Node n : adjacentNodes) {
-
-			if (closedNodes.contains(n))
+			
+			if (closedNodes.contains(n) || n.getCell().getFieldCellType().equals(FieldCellType.BLOCKED))
 				continue;
 
 			//Compute the Manhattan distance from node 'n' to destination
-			int h = Math.abs(origin.getX() - n.getX());
-			h += Math.abs(origin.getY() - n.getY());
+			int h = Math.abs(destination.getX() - n.getX());
+			h += Math.abs(destination.getY() - n.getY());
 
-			//Compute the distance from origin to node 'n' 
+//			Compute the distance from origin to node 'n' 
 			int g = node.getG();
 			if (node.getX() == n.getX() || node.getY() == n.getY())
 				g += 1; //Recta
@@ -92,10 +92,16 @@ public class PathFinder {
 				g += 1.41; //Diagonal
 
 			if (!openedNodes.contains(n)) {
-
-				n.setParent(node);
-				n.setH(h);
-				n.setG(g);
+				if(n.equals(destination)){
+					destination.setParent(node);
+					destination.setH(h);
+					destination.setG(g);
+				}else{
+					n.setParent(node);
+					n.setH(h);
+					n.setG(g);	
+				}
+				
 
 				openedNodes.add(n);
 			} else {
