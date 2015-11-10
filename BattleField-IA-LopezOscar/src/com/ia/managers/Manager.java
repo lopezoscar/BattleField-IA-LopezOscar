@@ -17,6 +17,8 @@ public interface Manager {
 	void addWarriorNumberByTick(Long tick,Integer enemyNumber);
 	Map<Long,Integer> getWarriorNumberByTick();
 	
+	void addMyDeath(String warrior);
+	
 	
 
 }

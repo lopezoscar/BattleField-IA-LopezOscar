@@ -6,7 +6,7 @@ import ia.exceptions.RuleException;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.ia.warriors.Mayweather;
+import com.ia.warriors.Maravilla;
 
 
 public class TuPAPA extends WarriorManager implements Manager{
@@ -21,30 +21,73 @@ public class TuPAPA extends WarriorManager implements Manager{
 	private Map<Long,Integer> warriorNumberByTick = new HashMap<Long,Integer>();
 	
 	
+	private Map<String,Integer> myDeaths = new HashMap<String,Integer>();
+	
+	
 	@Override
 	public String getName() {
 		// TODO Auto-generated method stub
-		return "TU PAPÁ";
+		return "TU PAPA";
 	}
 
-	@Override
+	
 	/**
-	 * TODO Hacer la siguiente logica
+	 * 
+	 * Primer Estrategia 
 	 * 
 	 * Primer luchador: Maravilla
 	 * Si maravilla pierde por diferencia > 5 -> se envía a Maywheater
 	 * Si Mayweather pierde por dif > 3 -> se envía a Tyson
-	 * 	
+	 * 
+	 * Segunda Estrategia
+	 * Siempre Maravilla
+	 * 
+	 * 
 	 * 
 	 */
+	@Override
 	public Warrior getNextWarrior() throws RuleException {
-		//String  name, int health, int defense, int strength, int speed, int range
-		Mayweather next = new Mayweather("Maywheater",30, 20, 20, 10, 10);
-//		Maravilla next = new Maravilla("Maravilla",30, 10, 40, 10, 10);
-//		SpecialItemWarrior next = new SpecialItemWarrior("REGALOS",50, 10, 20, 10, 10);
+//		Integer deaths = myDeaths.get("Maravilla");
+		
+//		int diff = 0;
+//		if(deaths != null){
+//			System.out.println("UNO Maravilla Muertes "+myDeaths.get("Maravilla"));
+//			diff = deaths - enemiesKilled; 
+//		}
+		
+		/**
+		 * Si no morí o morí menos de 10 veces y está parejo.(Si la diferencia es mayor a cinco está desparejo).
+		 */
+//		if( (deaths == null || deaths < 10) && diff < 5 ){
+////			String  name, int health, int defense, int strength, int speed, int range
+//			System.out.println("DALE MARAVILLA PONE HUEVO");
+//			Maravilla next = new Maravilla("Maravilla",30, 10, 40, 10, 10);
+//			next.setWarriorManager(this);
+//			return next;
+//		}
+//		deaths = myDeaths.get("Maywheater");
+//		if( (deaths == null || deaths < 3) && diff < 3){
+//			System.out.println("Maywheater hacelo comer guiso");
+//			Mayweather next = new Mayweather("Maywheater",40, 5, 30, 15, 10);
+//			next.setWarriorManager(this);
+//			return next;
+//		}
+		
+//		System.out.println("Ahi va el Maravilla Otra vez");
+//		Tyson next = new Tyson("TYSON",40, 10, 20, 20, 10);
+//		Maravilla next = new Maravilla("Maravilla 2",35, 5, 40, 10, 10);//  Gano 16 a 10 -> ("Maravilla",30, 10, 40, 10, 10); 
+		
+//		Maravilla next = new Maravilla("Maravilla 2",40, 5, 25, 20, 10);
+		
+		/**
+		 * Después de muchas pruebas determiné que la estrategia de Maravilla es la más efectiva contra los otros adversarios.
+		 */
+		Maravilla next = new Maravilla("Maravilla",40, 5, 30, 15, 10);
 		next.setWarriorManager(this);
 		return next;
 	}
+	
+	
 
 	public int getEnemiesKilled() {
 		return enemiesKilled;
@@ -94,6 +137,15 @@ public class TuPAPA extends WarriorManager implements Manager{
 	@Override
 	public Map<Long, Integer> getWarriorNumberByTick() {
 		return warriorNumberByTick;
+	}
+	
+	public void addMyDeath(String warrior){
+		if(myDeaths.get(warrior) != null){
+			int deaths = myDeaths.get(warrior);
+			myDeaths.put(warrior,deaths+1);	
+		}else{
+			myDeaths.put(warrior,1);
+		}
 	}
 	
 	

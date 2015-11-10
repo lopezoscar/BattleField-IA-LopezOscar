@@ -138,7 +138,6 @@ public class PathFinder {
 				node = n;
 			}
 		}
-
 		return node;
 	}
 }

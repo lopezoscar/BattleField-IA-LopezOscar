@@ -142,6 +142,7 @@ public class Mayweather extends Warrior{
 			System.out.println("Me atacó el hunter");
 			if(this.getHealth() <= 0){
 				System.out.println("Me mató el hunter");
+				wm.addMyDeath(this.getName());
 			}
 			//Fue el hunter
 		}

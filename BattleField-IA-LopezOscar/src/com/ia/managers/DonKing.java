@@ -92,4 +92,10 @@ public class DonKing extends WarriorManager implements Manager{
 		return null;
 	}
 
+	@Override
+	public void addMyDeath(String warrior) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

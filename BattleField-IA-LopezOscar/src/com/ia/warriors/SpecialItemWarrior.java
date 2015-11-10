@@ -13,7 +13,7 @@ import com.ia.game.MoveWarrior;
 import com.ia.managers.Manager;
 import com.ia.pathfinder.PathFinder;
 
-public class SpecialItemWarrior extends Warrior implements Manager{
+public class SpecialItemWarrior extends Warrior{
 
 	public SpecialItemWarrior(String name, int health, int defense,
 			int strength, int speed, int range) throws RuleException {
@@ -56,66 +56,6 @@ public class SpecialItemWarrior extends Warrior implements Manager{
 	public void worldChanged(FieldCell oldCell, FieldCell newCell) {
 		// TODO Auto-generated method stub
 		
-	}
-
-	@Override
-	public void addEnemyKilled() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public int getEnemiesKilled() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void addEnemyKilledByHunter() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public int getEnemiesKilledByHunter() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void setEnemyNumber(int enemyNumber) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public int getEnemyNumber() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void addKilledBy(String warrior, Integer enemyNumber) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public Map<String, Integer> getKilledBy() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void addWarriorNumberByTick(Long tick, Integer enemyNumber) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public Map<Long, Integer> getWarriorNumberByTick() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

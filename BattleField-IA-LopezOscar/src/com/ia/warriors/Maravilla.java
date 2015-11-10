@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import com.ia.game.MoveWarrior;
 import com.ia.managers.Manager;
 import com.ia.pathfinder.PathFinder;
+import com.ia.strategies.IStrategy;
+import com.ia.strategies.Survivor;
 
 
 
@@ -43,8 +45,16 @@ public class Maravilla extends Warrior{
 	 */
 	public Action playTurn(long tick, int actionNumber) {
 		if(actionNumber == 0){
-//			System.out.println("LAST POS "+lastPos);
 			lastPos = this.getPosition();
+		}
+		
+		if(BattleField.getInstance().getHunterData().getInRange() && !BattleField.getInstance().getEnemyData().getInRange()){
+			IStrategy strategy = new Survivor();
+			Action action = strategy.playMove(this);
+			if(action != null){
+				return action;
+			}
+			//Sino continua evaluando
 		}
 		
 		MoveWarrior move = new MoveWarrior();
@@ -55,7 +65,6 @@ public class Maravilla extends Warrior{
 				alreadyAttack = false;
 				return move;
 			}else{
-//				System.out.println("ATACO a "+BattleField.getInstance().getEnemyData().getName());
 				alreadyAttack = true;
 				return new Attack(BattleField.getInstance().getEnemyData().getFieldCell());	
 			}
@@ -75,9 +84,17 @@ public class Maravilla extends Warrior{
 	 */
 	public void wasAttacked(int damage, FieldCell source) {
 		if(source.equals(BattleField.getInstance().getEnemyData().getFieldCell())){
-			System.out.println("Me atacó "+BattleField.getInstance().getEnemyData().getName());
+			System.out.println("SOY "+this.getName()+" Me atacó "+BattleField.getInstance().getEnemyData().getName());
+			if(this.getHealth() <= 0){
+				System.out.println("SOY "+this.getName()+" Me mató el enemigo");
+				wm.addMyDeath(this.getName());
+			}
 		}else{
-			System.out.println("Me atacó el hunter");
+			System.out.println("SOY "+this.getName()+" Me atacó el hunter");
+			if(this.getHealth() <= 0){
+				System.out.println("SOY "+this.getName()+" Me mató el hunter");
+				wm.addMyDeath(this.getName());
+			}
 			//Fue el hunter
 		}
 	}
