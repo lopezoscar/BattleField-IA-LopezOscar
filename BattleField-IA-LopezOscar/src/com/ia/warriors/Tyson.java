@@ -1,14 +1,15 @@
+package com.ia.warriors;
 import ia.battle.camp.BattleField;
 import ia.battle.camp.FieldCell;
 import ia.battle.camp.Warrior;
-import ia.battle.camp.WarriorManager;
 import ia.battle.camp.actions.Action;
 import ia.battle.camp.actions.Attack;
-import ia.battle.camp.actions.Skip;
 import ia.exceptions.RuleException;
 
 import java.util.ArrayList;
 
+import com.ia.game.MoveWarrior;
+import com.ia.managers.Manager;
 import com.ia.pathfinder.PathFinder;
 
 
@@ -25,20 +26,23 @@ public class Tyson extends Warrior{
 	
 
 	@Override
+	/**
+	 * Estrategia 3 -> Fuerza Bruta.
+	 * 
+	 * Busco siempre al enemigo, si hay regalos los tomo.
+	 * 
+	 */
 	public Action playTurn(long tick, int actionNumber) {
-		if(wasKilled < 15){
+		
+		
 			MoveWarrior move = new MoveWarrior();
 			if(BattleField.getInstance().getEnemyData().getInRange()){
 				return new Attack(BattleField.getInstance().getEnemyData().getFieldCell());	
 			}else{
-				ArrayList<FieldCell> path = PathFinder.getInstance().findPath(this.getPosition(), BattleField.getInstance().getEnemyData().getFieldCell());
+				ArrayList<FieldCell> path = PathFinder.getInstance().activateSpecialItems().findPath(this.getPosition(), BattleField.getInstance().getEnemyData().getFieldCell());
 				move.setMoves(path);
 				return move;
 			}			
-		}else{
-			System.out.println("SOY  "+this.getName()+" mate a "+wasKilled);
-			return new Skip();
-		}
 	}
 
 	@Override

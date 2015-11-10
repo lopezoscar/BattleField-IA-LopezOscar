@@ -8,6 +8,8 @@ import ia.battle.camp.WarriorManager;
 
 import org.junit.Test;
 
+import com.ia.managers.DonKing;
+
 
 public class RunBattleFieldTest {
 	

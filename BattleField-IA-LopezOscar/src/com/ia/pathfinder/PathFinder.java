@@ -14,10 +14,18 @@ public class PathFinder {
 	private Node origin, destination;
 	
 	private static PathFinder instance;
+	
+	private boolean activateSpecialItems;
 
 	public PathFinder(){
 		
 	}
+	
+	public PathFinder activateSpecialItems(){
+		activateSpecialItems = true;
+		return this;
+	}
+	
 
 	public static final PathFinder getInstance() {
 		if(instance == null){
@@ -119,9 +127,17 @@ public class PathFinder {
 	private Node getMinFValueNode() {
 		Node node = openedNodes.get(0);
 
-		for (Node n : openedNodes)
-			if (node.getF() > n.getF())
+		for (Node n : openedNodes){
+			
+			//Retorna el nodo si tiene un regalo.
+			if(activateSpecialItems && BattleField.getInstance().getSpecialItems().contains(n.getCell())){
+				return n;
+			}
+		
+			if (n.getF() < node.getF()){
 				node = n;
+			}
+		}
 
 		return node;
 	}

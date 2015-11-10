@@ -1,3 +1,4 @@
+package com.ia.game;
 import ia.battle.camp.FieldCell;
 import ia.battle.camp.actions.Move;
 
