@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import com.ia.game.MoveWarrior;
 import com.ia.managers.Manager;
+import com.ia.pathfinder.BoxFinder;
 import com.ia.pathfinder.PathFinder;
 import com.ia.strategies.IStrategy;
 import com.ia.strategies.Survivor;
@@ -62,6 +63,8 @@ public class Mayweather extends Warrior{
 	
 	private int lastWarriorNumberKilledByMe = 0;
 	
+	private int contadorRegalos = 0;
+	
 	@Override
 	/*Tick 1 Hunter - Tick 2 WM1 - Tick 3 WM2*/
 	public Action playTurn(long tick, int actionNumber) {
@@ -73,6 +76,18 @@ public class Mayweather extends Warrior{
 		}
 		
 		ArrayList<FieldCell> specialItems = BattleField.getInstance().getSpecialItems();
+		
+		if(specialItems.size() > 0 && contadorRegalos < 5 && !BattleField.getInstance().getEnemyData().getInRange()){
+			ArrayList<FieldCell> path = BoxFinder.getInstance().getPathFrom(this.getPosition());
+			if(path != null){
+				System.out.println("BUSCO REGALOS HASTA QUE SE ACABEN");
+				contadorRegalos++;
+				MoveWarrior move = new MoveWarrior();
+				move.setMoves(path);
+				return move;
+			}	
+		}
+		
 		
 		if(this.getHealth() < 20 && specialItems.size() > 1){
 			IStrategy strategy = new Survivor();

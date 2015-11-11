@@ -18,7 +18,7 @@ public class Survivor implements IStrategy{
 	@Override
 	public Action playMove(Warrior w) {
 		MoveWarrior move = new MoveWarrior();
-		if(w.getHealth() < BattleField.getInstance().getEnemyData().getHealth()){
+//		if(w.getHealth() < BattleField.getInstance().getEnemyData().getHealth()){
 			ArrayList<FieldCell> path = BoxFinder.getInstance().getPathFrom(w.getPosition());
 			if(path != null){
 				move.setMoves(path);
@@ -26,10 +26,11 @@ public class Survivor implements IStrategy{
 			}else{
 				return null;
 			}
-		}else{
-			return null;
 		}
-	}
+//	else{
+//			return null;
+//		}
+//	}
 
 	
 	

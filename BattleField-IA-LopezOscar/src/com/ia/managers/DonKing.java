@@ -6,7 +6,7 @@ import ia.exceptions.RuleException;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.ia.warriors.Tyson;
+import com.ia.warriors.Mayweather;
 
 
 public class DonKing extends WarriorManager implements Manager{
@@ -31,7 +31,8 @@ public class DonKing extends WarriorManager implements Manager{
 	
 	private Warrior createWarrior() throws RuleException{
 		//String name, int health, int defense, int strength, int speed, int range
-		Tyson next = new Tyson("TYSON",40, 10, 10, 20, 20);
+//		Tyson next = new Tyson("TYSON",40, 10, 10, 20, 20);
+		Mayweather next = new Mayweather("Maywheater",40, 5, 30, 15, 10);
 		next.setWarriorManager(this);
 		return next;
 	}
