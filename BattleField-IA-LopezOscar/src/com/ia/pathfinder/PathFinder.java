@@ -41,20 +41,26 @@ public class PathFinder {
 	 * @return lista de FieldCell a recorrer
 	 */
 	public ArrayList<FieldCell> findPath(FieldCell from, FieldCell to) {
-		nodes = new ArrayList<Node>();
-		closedNodes = new ArrayList<Node>();
-		openedNodes = new ArrayList<Node>();
+		try{
+			nodes = new ArrayList<Node>();
+			closedNodes = new ArrayList<Node>();
+			openedNodes = new ArrayList<Node>();
 
-		origin = new Node(from);
-		destination = new Node(to);
+			origin = new Node(from);
+			destination = new Node(to);
 
-		Node currentNode = origin;
-		while ( !currentNode.equals(destination) ){
-			processNode(currentNode);
-			currentNode = getMinFValueNode();
+			Node currentNode = origin;
+			while ( !currentNode.equals(destination) ){
+				processNode(currentNode);
+				currentNode = getMinFValueNode();
+			}
+			return retrievePath();
+			
+		}catch(IndexOutOfBoundsException exp){
+			//TODO Revisar cuando pasa porque.
 		}
-
-		return retrievePath();
+		
+		return new ArrayList<FieldCell>();
 	}
 
 	private ArrayList<FieldCell> retrievePath(){
@@ -124,7 +130,7 @@ public class PathFinder {
 		}
 	}
 
-	private Node getMinFValueNode() {
+	private Node getMinFValueNode() throws IndexOutOfBoundsException{
 		Node node = openedNodes.get(0);
 
 		for (Node n : openedNodes){
